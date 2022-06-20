@@ -72,6 +72,7 @@ public class User {
         return "User [id=" + id + ", name=" + name + "]";
     }
 }
+
 /* public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")

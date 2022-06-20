@@ -77,6 +77,7 @@ public class Event {
         return "Users [id=" + id + ", date=" + date + ", category=" + category + ", time=" + time + "]";
       }
 }
+
 /* public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_generator")
@@ -136,7 +137,4 @@ public class Event {
     public void setSelectedTime(String selectedTime) {
         this.selected_time = selectedTime;
     }
-
-
-
 } */
