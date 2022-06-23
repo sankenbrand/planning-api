@@ -34,13 +34,6 @@ public class UserController {
       return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
- /*    @GetMapping("/events/{id}")
-    public ResponseEntity<User> getUsersByEventId(@PathVariable(value = "id") Long id) {
-      User user = userRepository.findById(id)
-          .orElseThrow(() -> new ResourceNotFoundException("Not found user with id = " + id));
-      return new ResponseEntity<>(user, HttpStatus.OK);
-    } */
-
     @PostMapping("/events/{eventId}/users")
     public ResponseEntity<User> createUser(@PathVariable(value = "eventId") Long eventId,
         @RequestBody User userRequest) {
@@ -58,9 +51,6 @@ public class UserController {
             System.out.println("PUT user");
             User user = userRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("UserId " + id + "not found"));
-            user.setName(userRequest.getName());
-            user.setCategory(userRequest.getCategory());
-            user.setPreferredTime(userRequest.getPreferredTime());
             user.setSelectedTime(userRequest.getSelectedTime());
             System.out.println(">> user successfully updated");
             return new ResponseEntity<>(userRepository.save(user), HttpStatus.OK);
@@ -84,74 +74,6 @@ public class UserController {
             eventRepository.save(event);
             
             System.out.println(">> all users successfully deleted");
-      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-  /*   @GetMapping("/events/{plannedEventId}/users")
-    public ResponseEntity<List<User>> getAllCommentsByTutorialId(@PathVariable(value = "plannedEventId") Integer plannedEventId) {
-      if (!eventRepository.existsById(plannedEventId)) {
-        throw new ResourceNotFoundException("Event", "eventId", plannedEventId);
-      }
-      List<User> users = userRepository.findByPlannedEventId(plannedEventId);
-      return new ResponseEntity<>(users, HttpStatus.OK);
-    }
-
-    @PostMapping("/events/{plannedEventId}/users")
-    public ResponseEntity<User> createUser(@PathVariable(value = "plannedEventId") Integer plannedEventId,
-        @RequestBody User userRequest) {
-      User User = eventRepository.findById(plannedEventId).map(event -> {
-        userRequest.setEvent(event);
-        return userRepository.save(userRequest);
-      }).orElseThrow(() -> new ResourceNotFoundException("Event", "eventId", plannedEventId));
-      return new ResponseEntity<>(User, HttpStatus.CREATED);
-    }
-
-    @GetMapping("/users")
-    public List<User> list() {
-        System.out.println("GET users");
-        return service.listAll();
-    }
-    
-    @GetMapping("/users/{id}")
-    public ResponseEntity<User> get(@PathVariable Integer id) {
-        System.out.println("GET user");
-        try {
-            User user = service.get(id);
-            System.out.println(">> get user with id " + id);
-            return new ResponseEntity<User>(user, HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
-        }      
-    }
-    
-    @PostMapping("/users")
-    public ResponseEntity<String> add(@RequestBody User user) {
-        System.out.println("POST user");
-        service.save(user);
-        System.out.println(">> user successfully created");
-        return new ResponseEntity<String>("User successfully created!", HttpStatus.OK);
-    }
-
-    @DeleteMapping("/users/{id}")
-    public ResponseEntity<String> delete(@PathVariable Integer id) {
-        System.out.println("DELETE user");
-        service.delete(id);
-        System.out.println(">> user successfully deleted");
-        return ResponseEntity.ok("User successfully deleted!");
-    }
-
-    @PutMapping("/users/{id}")
-    public User update(@PathVariable(value = "id") Integer id, @RequestBody User userDetails) {
-        System.out.println("PUT user");
-        
-        User user = userRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
-        
-        user.setSelectedTime(userDetails.getSelectedTime());
-        
-        User updatedUser = userRepository.save(user);
-        System.out.println(">> user successfully updated");
-        return updatedUser;
-    } 
-     */
 }
